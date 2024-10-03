@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pokemon Fight</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="body">
+    <header>
+        <img class="logo"
+             title="Reset Game"
+             src="./assets/Pokemon_logo.png"
+             alt="Pokemon">
+    </header>
+    <div class="playground">
+        <div class="pokemon character">
+            <span class="lvl">Lv. 1</span>
+            <img src="C:\Users\Andrey\OneDrive\Рабочий стол\веб розробка\js game\png-transparent-pikachu-art-t-shirt-pikachu-mammal-vertebrate-computer-wallpaper.png" class="sprite" alt="Pikachu"> <!-- Измените на вашу ссылку на изображение Пикачу -->
+            <div class="details">
+                <h2 class="name" id="name-character">
+                    Pikachu
+                </h2>
+                <div class="hp">
+                    <div class="bar">
+                        <div class="health" id="progressbar-character" style="width: 100%;"></div>
+                    </div>
+                    <span class="text" id="health-character">100 / 100</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="control">
+            <button class="button" id="btn-kick">
+                Thunder Jolt
+            </button>
+            <button class="button" id="btn-harm">Thundershock</button>
+            <button class="button" id="btn-extra-harm">Extra Damage</button>
+        </div>
+
+        <div class="pokemon enemy" id="enemy-container"> 
+            <span class="lvl">Lv. 1</span>
+            <img id="enemy-sprite" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" class="sprite" alt="Bulbasaur">
+            <div class="details">
+                <h2 class="name" id="name-enemy">
+                    Bulbasaur
+                </h2>
+                <div class="hp">
+                    <div class="bar">
+                        <div class="health" id="progressbar-enemy" style="width: 100%;"></div>
+                    </div>
+                    <span class="text" id="health-enemy">100 / 100</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="pokemon enemy" id="enemy2-container" style="display: none;"
+            <span class="lvl">Lv. 2</span>
+            <img id="enemy2-sprite" src="C:\Users\Andrey\OneDrive\Рабочий стол\веб розробка\js game\007.png" class="sprite" alt="Squirtle">
+            <div class="details">
+                <h2 class="name" id="name-enemy2">
+                    Squirtle
+                </h2>
+                <div class="hp">
+                    <div class="bar">
+                        <div class="health" id="progressbar-enemy2" style="width: 100%;"></div>
+                    </div>
+                    <span class="text" id="health-enemy2">100 / 100</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="catch_screen"></div>
+
+<script src="main.js"></script>
+</body>
+</html>
