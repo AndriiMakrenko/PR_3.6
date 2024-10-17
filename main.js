@@ -1,86 +1,105 @@
-const Pokemon = {
-    attack: function(damage) {
-        this.health -= damage;
-        this.updateHealth();
-        if (this.health <= 0) {
-            this.health = 0;
-            alert(`${this.name} проиграл! Начинаем заново.`);
+document.addEventListener('DOMContentLoaded', () => {
+    const logs = [
+        '[ПЕРСОНАЖ №1] згадав щось важливе, але раптово [ПЕРСОНАЖ №2], не пам\'ятаючи себе від страху, вдарив у передпліччя ворога.',
+        '[ПЕРСОНАЖ №1] поперхнувся, і за це [ПЕРСОНАЖ №2] з переляку вдарив коліном у лоб ворога.',
+        '[ПЕРСОНАЖ №1] задумався, але в цей час нахабний [ПЕРСОНАЖ №2], прийнявши вольове рішення, безшумно підійшов ззаду і вдарив.',
+        '[ПЕРСОНАЖ №1] прийшов до тями, але раптово [ПЕРСОНАЖ №2] випадково завдав потужного удару.',
+        '[ПЕРСОНАЖ №1] поперхнувся, але в цей час [ПЕРСОНАЖ №2] неохоче роздробив кулаком ворога.',
+        '[ПЕРСОНАЖ №1] здивувався, а [ПЕРСОНАЖ №2] похитнувся і завдав підступного удару.',
+        '[ПЕРСОНАЖ №1] висморкався, але раптово [ПЕРСОНАЖ №2] завдав дроблячого удару.',
+        '[ПЕРСОНАЖ №1] похитнувся, і раптом нахабний [ПЕРСОНАЖ №2] без причини вдарив у ногу противника.',
+        '[ПЕРСОНАЖ №1] засмутився, як раптом, несподівано [ПЕРСОНАЖ №2] випадково завдав удару в живіт суперника.',
+        '[ПЕРСОНАЖ №1] намагався щось сказати, але раптом [ПЕРСОНАЖ №2] від нудьги розбив брову супротивнику.'
+    ];
+
+    const logsDiv = document.createElement('div');
+    logsDiv.id = 'logs';
+    document.body.appendChild(logsDiv);
+
+    const addLog = (message) => {
+        const newLog = document.createElement('p');
+        newLog.textContent = message;
+        logsDiv.prepend(newLog);
+    };
+
+    const getRandomLog = (character1, character2) => {
+        const randomIndex = Math.floor(Math.random() * logs.length);
+        return logs[randomIndex].replace('[ПЕРСОНАЖ №1]', character1).replace('[ПЕРСОНАЖ №2]', character2);
+    };
+
+    const character = {
+        name: 'Pikachu',
+        health: 100,
+        maxHealth: 100,
+        progressBar: document.getElementById('progressbar-character'),
+        healthText: document.getElementById('health-character'),
+
+        updateHealthBar() {
+            const { health, maxHealth, progressBar, healthText } = this;
+            this.health = Math.max(health, 0);
+            const healthPercentage = (this.health / maxHealth) * 100;
+            progressBar.style.width = `${healthPercentage}%`;
+            healthText.textContent = `${this.health} / ${this.maxHealth}`;
+        },
+
+        receiveDamage(damage, enemyName) {
+            this.health -= damage;
+            this.updateHealthBar();
+            const logMessage = getRandomLog(this.name, enemyName);
+            addLog(`${logMessage} ${this.name} отримав ${damage} пошкоджень. Залишилось ${this.health} HP.`);
+        },
+    };
+
+    const enemy = {
+        name: 'Bulbasaur',
+        health: 100,
+        maxHealth: 100,
+        progressBar: document.getElementById('progressbar-enemy'),
+        healthText: document.getElementById('health-enemy'),
+
+        updateHealthBar() {
+            const { health, maxHealth, progressBar, healthText } = this;
+            this.health = Math.max(health, 0);
+            const healthPercentage = (this.health / maxHealth) * 100;
+            progressBar.style.width = `${healthPercentage}%`;
+            healthText.textContent = `${this.health} / ${this.maxHealth}`;
+        },
+
+        receiveDamage(damage, characterName) {
+            this.health -= damage;
+            this.updateHealthBar();
+            const logMessage = getRandomLog(this.name, characterName);
+            addLog(`${logMessage} ${this.name} отримав ${damage} пошкоджень. Залишилось ${this.health} HP.`);
+        },
+    };
+
+    const checkGameOver = () => {
+        const isCharacterDefeated = character.health === 0;
+        const isEnemyDefeated = enemy.health === 0;
+
+        if (isCharacterDefeated && isEnemyDefeated) {
+            addLog('Нічия! Всі учасники бою втратили здоров\'я!');
+            alert('Нічия! Всі учасники бою втратили здоров\'я!');
+            location.reload();
+        } else if (isCharacterDefeated) {
+            addLog('Гра закінчена! Пікачу програв!');
+            alert('Гра закінчена! Пікачу програв!');
+            location.reload();
+        } else if (isEnemyDefeated) {
+            addLog('Вітаємо! Пікачу переміг Бульбазавра!');
+            alert('Вітаємо! Пікачу переміг Бульбазавра!');
             location.reload();
         }
-    },
+    };
 
-    updateHealth: function() {
-        this.progressBar.style.width = (this.health / this.maxHealth * 100) + '%';
-        this.healthText.textContent = `${this.health} / ${this.maxHealth}`;
-    },
+    const attackEnemy = (damage) => {
+        enemy.receiveDamage(damage, character.name);
+        const characterDamage = Math.floor(Math.random() * 20) + 1;
+        character.receiveDamage(characterDamage, enemy.name);
+        checkGameOver();
+    };
 
-    reset: function() {
-        this.health = this.maxHealth;
-        this.updateHealth();
-    },
-
-    takeDamage: function(damage) {
-        this.attack(damage);
-    }
-};
-
-const character = Object.create(Pokemon);
-character.name = 'Pikachu';
-character.level = 1;
-character.health = 100;
-character.maxHealth = 100;
-character.progressBar = document.getElementById('progressbar-character');
-character.healthText = document.getElementById('health-character');
-
-const enemy = Object.create(Pokemon);
-enemy.name = 'Bulbasaur';
-enemy.level = 1;
-enemy.health = 100;
-enemy.maxHealth = 100;
-enemy.progressBar = document.getElementById('progressbar-enemy');
-enemy.healthText = document.getElementById('health-enemy');
-
-const enemy2 = Object.create(Pokemon);
-enemy2.name = 'Squirtle';
-enemy2.level = 2;
-enemy2.health = 100;
-enemy2.maxHealth = 100;
-enemy2.progressBar = document.getElementById('progressbar-enemy2');
-enemy2.healthText = document.getElementById('health-enemy2');
-
-let currentEnemy = enemy;
-
-function getEnemyDamage() {
-    return 10;
-}
-
-function getEnemy2Damage() {
-    return 3;
-}
-
-document.getElementById('btn-kick').addEventListener('click', function() {
-    character.takeDamage(5);
-    if (currentEnemy.health > 0) {
-        currentEnemy.takeDamage(currentEnemy === enemy ? getEnemyDamage() : getEnemy2Damage());
-    }
-});
-
-document.getElementById('btn-harm').addEventListener('click', function() {
-    character.takeDamage(8);
-    if (currentEnemy.health > 0) {
-        currentEnemy.takeDamage(currentEnemy === enemy ? getEnemyDamage() : getEnemy2Damage());
-    }
-});
-
-document.getElementById('btn-extra-harm').addEventListener('click', function() {
-    character.takeDamage(12);
-    if (currentEnemy.health > 0) {
-        currentEnemy.takeDamage(currentEnemy === enemy ? getEnemyDamage() : getEnemy2Damage());
-    }
-});
-
-document.getElementById('btn-switch-enemy').addEventListener('click', function() {
-    currentEnemy = currentEnemy === enemy ? enemy2 : enemy;
-    document.getElementById('enemy2-container').style.display = currentEnemy === enemy2 ? "block" : "none";
-    document.getElementById('enemy-container').style.display = currentEnemy === enemy ? "block" : "none";
+    document.getElementById('btn-kick').addEventListener('click', () => attackEnemy(5));
+    document.getElementById('btn-harm').addEventListener('click', () => attackEnemy(8));
+    document.getElementById('btn-extra-harm').addEventListener('click', () => attackEnemy(12));
 });
