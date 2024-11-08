@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,7 +13,7 @@
         <img class="logo" title="Reset Game" src="./assets/Pokemon_logo.png" alt="Pokemon">
     </header>
     <div class="playground">
-        <div class="pokemon character">
+        <div class="pokemon character" id="character-container">
             <span class="lvl">Lv. 1</span>
             <img src="./assets/png-transparent-pikachu-art-t-shirt-pikachu-mammal-vertebrate-computer-wallpaper.png" class="sprite" alt="Pikachu"> 
             <div class="details">
@@ -28,18 +27,18 @@
             </div>
         </div>
 
-        <div class="control">
-            <button class="button" id="btn-kick">Thunder Jolt</button>
-            <button class="button" id="btn-harm">Thundershock</button>
-            <button class="button" id="btn-extra-harm">Extra Damage</button>
+        <div class="control" id="controls">
+            <button class="button" id="btn-kick" style="display: none;">Thunder Jolt</button>
+            <button class="button" id="btn-harm" style="display: none;">Thundershock</button>
+            <button class="button" id="btn-extra-harm" style="display: none;">Extra Damage</button>
             <p id="click-info"></p>
         </div>
 
         <div class="pokemon enemy" id="enemy-container"> 
             <span class="lvl">Lv. 1</span>
-            <img id="enemy-sprite" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" class="sprite" alt="Bulbasaur">
+            <img id="enemy-sprite" src="./assets/png-transparent-game-pokeball-pokemon-pokemon-go-pokemongo-pokestop-pokemon-go-addict-icon-thumbnail-removebg-preview-removebg-preview.png" class="sprite" alt="Enemy Pokemon"> <!-- Начальная картинка покемона -->
             <div class="details">
-                <h2 class="name" id="name-enemy">Bulbasaur</h2>
+                <h2 class="name" id="name-enemy">Enemy</h2>
                 <div class="hp">
                     <div class="bar">
                         <div class="health" id="progressbar-enemy" style="width: 100%;"></div>
@@ -49,11 +48,17 @@
             </div>
         </div>
     </div>
+
+    <div class="game-controls">
+        <button id="btn-start-game">Почати гру</button>
+        <button id="btn-restart-game" style="display: none;">Почати гру спочатку</button>
+    </div>
 </div>
 
 <div class="catch_screen"></div>
 
 <div id="logs"></div>
+
 <script type="module" src="js/main.js"></script>
 <script type="module" src="js/logs.js"></script>
 <script type="module" src="js/pokemon.js"></script>

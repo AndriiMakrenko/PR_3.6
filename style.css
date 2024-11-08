@@ -485,3 +485,92 @@ h1 {
     border-radius: 10px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
+
+
+.button {
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 12px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+
+.button:hover {
+    background-color: #45a049;
+    transform: scale(1.1); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+.button:active {
+    background-color: #3e8e41;
+    transform: scale(0.98);
+}
+
+#btn-start-game {
+    background-color: #007bff; 
+    box-shadow: 0 8px 15px rgba(0, 123, 255, 0.4);
+    font-size: 24px;
+    padding: 25px 60px;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    animation: bounce 1.5s infinite alternate; 
+}
+
+
+#btn-start-game:hover {
+    background-color: #0056b3;
+    box-shadow: 0 8px 20px rgba(0, 0, 255, 0.6);
+    transform: scale(1.1); 
+}
+
+
+#btn-start-game:active {
+    background-color: #003b73;
+    transform: scale(0.98); 
+}
+
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+#btn-restart-game {
+    background-color: #dc3545; 
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.4);
+    display: none;
+}
+
+#btn-restart-game:hover {
+    background-color: #c82333;
+}
+
+.health {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.low {
+    background-color: yellow; 
+}
+
+.critical {
+    background-color: red; 
+}
